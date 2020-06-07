@@ -28,7 +28,7 @@ if not os.path.isfile(config_file):
     with open(config_file, 'w') as configfile:
         config.write(configfile)
 
-config.read(os.path.join(home, '.movielinker'))
+config.read(os.path.join(config_file))
 username = config['movielinker']['username']
 password = config['movielinker']['password']
 api_key = config['movielinker']['api_key']
