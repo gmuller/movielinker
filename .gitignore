@@ -1,5 +1,8 @@
 *.py[cod]
 
+# Prevent csv files from test runs showing up in the repo
+*.csv
+
 # C extensions
 *.so
 .python-version
