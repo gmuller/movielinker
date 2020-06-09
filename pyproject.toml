@@ -10,6 +10,7 @@ tmdbsimple = "^2.2.11"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+black = "^19.10b0"
 
 [tool.poetry.scripts]
 movielinker = 'movielinker.movielinker:main'
