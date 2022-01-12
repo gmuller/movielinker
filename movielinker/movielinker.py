@@ -6,7 +6,6 @@ import os
 import configparser
 from argparse import ArgumentParser
 
-
 def main():
     parser = ArgumentParser()
     parser.add_argument("-i", "--movie-id", dest="movie_id", help="Movie ID to link to")
@@ -15,27 +14,32 @@ def main():
     )
     args = parser.parse_args()
 
-    home = os.path.expanduser("~")
-    config = configparser.ConfigParser()
-    config_file = os.path.join(home, ".movielinker")
+    username = os.getenv('MOVIELINKER_USER')
+    password = os.getenv('MOVIELINKER_PASSWORD')
+    api_key = os.getenv('MOVIELINKER_API')
+    
+    if username is None: 
+      home = os.path.expanduser("~")
+      config = configparser.ConfigParser()
+      config_file = os.path.join(home, ".movielinker")
 
-    if not os.path.isfile(config_file):
-        print("No configuration file found, creating")
-        username = input("What is your TMDB Username? ")
-        password = input("What is your TMDB Password? ")
-        api_key = input("What is your TMDB API Key? ")
-        config["movielinker"] = {
-            "username": username,
-            "password": password,
-            "api_key": api_key,
-        }
-        with open(config_file, "w") as configfile:
-            config.write(configfile)
+      if not os.path.isfile(config_file):
+          print("No configuration file found, creating")
+          username = input("What is your TMDB Username? ")
+          password = input("What is your TMDB Password? ")
+          api_key = input("What is your TMDB API Key? ")
+          config["movielinker"] = {
+              "username": username,
+              "password": password,
+              "api_key": api_key,
+          }
+          with open(config_file, "w") as configfile:
+              config.write(configfile)
 
-    config.read(os.path.join(config_file))
-    username = config["movielinker"]["username"]
-    password = config["movielinker"]["password"]
-    api_key = config["movielinker"]["api_key"]
+      config.read(os.path.join(config_file))
+      username = config["movielinker"]["username"]
+      password = config["movielinker"]["password"]
+      api_key = config["movielinker"]["api_key"]
 
     tmdb.API_KEY = api_key
 
